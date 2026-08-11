@@ -42,6 +42,39 @@ The current model considers this column to be the table's technical key.
 
 Validation fails if more than one column is of type `AutoNumber`.
 
+## BR-004 — A reference must target a non-empty table name
+
+### Description
+
+A reference constraint must specify the name of the referenced table.
+
+### Motivation
+
+A reference has no meaning without a target table.
+
+### Expected Behavior
+
+Validation fails if the referenced table name is empty.
+
+
+## BR-005 — A column cannot contain duplicate constraints.
+
+### Description
+
+### Motivation
+
+### Expected Behaviour
+
+
+## BR-006 — A column cannot contain more than one reference constraint.
+
+### Description
+
+### Motivation
+
+### Expected Behaviour
+
+
 # Future Rules
 
 - References must point to an existing table.

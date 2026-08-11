@@ -75,3 +75,5 @@
 [x] Déplacer traverse vers core lorsqu'un second usage apparaîtra.
 
 [ ] Ajouter asMapping()
+
+[ ] Enrich the validation error model
