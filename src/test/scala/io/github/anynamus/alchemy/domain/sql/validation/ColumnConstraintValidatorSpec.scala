@@ -1,7 +1,8 @@
 package io.github.anynamus.alchemy.domain.sql.validation
 
-import org.scalatest.funsuite.AnyFunSuite
+import io.github.anynamus.alchemy.core.ValidationResult
 import io.github.anynamus.alchemy.domain.sql.model.Constraint.*
+import org.scalatest.funsuite.AnyFunSuite
 
 class ColumnConstraintValidatorSpec extends AnyFunSuite:
 
@@ -14,3 +15,28 @@ class ColumnConstraintValidatorSpec extends AnyFunSuite:
     val result = validator.validate(constraints)
 
     assert(result == Left(Vector("BR-004")))
+
+  test("BR-005 - A column cannot contain duplicate NotNull Constraint"):
+
+    val constraints = Vector(NotNull, NotNull)
+
+    val result = validator.validate(constraints)
+
+    assert(result == Left(Vector("BR-005: duplicated constraints NotNull")))
+
+
+  test("BR-005 - A column cannot contain duplicate Reference Constraint"):
+
+    val constraints = Vector(Reference("Customer"), Reference("Customer"))
+
+    val result = validator.validate(constraints)
+
+    assert(result == Left(Vector("BR-005: duplicated constraints Reference(Customer)")))
+
+  test("BR-005 - Constraints without duplication is valid"):
+
+    val constraints = Vector(NotNull, Reference("Customer"))
+
+    val result = validator.validate(constraints)
+
+    assert(result == Right(constraints))

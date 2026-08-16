@@ -8,3 +8,11 @@ object Collections:
       .filter { (_, occurrences) => occurrences.size > 1 }
       .mapValues(_.toVector)
       .toMap
+
+  def duplicates[A](values: Vector[A]): Map[A, Vector[A]] =
+    values
+      .groupBy(identity)
+      .collect {
+        case (value, occurrences) if occurrences.size > 1 =>
+          value -> occurrences
+      }

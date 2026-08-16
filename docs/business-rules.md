@@ -57,13 +57,19 @@ A reference has no meaning without a target table.
 Validation fails if the referenced table name is empty.
 
 
-## BR-005 — A column cannot contain duplicate constraints.
+## BR-005 — A column cannot contain duplicate constraints
 
 ### Description
 
+Each constraint must occur at most once within a column.
+
 ### Motivation
 
-### Expected Behaviour
+Duplicating the same constraint on a column provides no additional meaning.
+
+### Expected Behavior
+
+Validation fails if the same constraint occurs more than once within a column.
 
 
 ## BR-006 — A column cannot contain more than one reference constraint.
