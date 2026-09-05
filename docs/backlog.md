@@ -36,11 +36,11 @@
 
 ## US-007 Schema model
 
-[ ] Introduce Schema
+[x] Introduce Schema
 
 ## US-008 Schema decoder
 
-[ ] Decode a Schema
+[x] Decode a Schema
 
 ## US-009 Schema validation
 
