@@ -44,7 +44,7 @@
 
 ## US-009 Schema validation
 
-[ ] Validate a Schema
+[x] Validate a Schema
 
 ## US-010 Import data
 
