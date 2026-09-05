@@ -86,6 +86,35 @@ A column can reference only one table.
 
 Validation fails if a column contains more than one reference constraint.
 
+## BR-007 — A schema must contain at least one table
+
+### Description
+
+A schema must contain at least one table.
+
+### Motivation
+
+A schema without tables has no useful SQL definition.
+
+### Expected Behaviour
+
+Validation fails if a schema contains no tables.
+
+
+## BR-008 — Table names must be unique within a schema
+
+### Description
+
+Each table name must occur at most once within a schema.
+
+### Motivation
+
+A table name identifies a table and must therefore be unambiguous.
+
+### Expected Behaviour
+
+Validation fails if multiple tables have the same name.
+
 
 # Future Rules
 
