@@ -32,7 +32,7 @@
 
 ### US-006 Constraint validation
 
-[ ] Applying business rules validations on the constraints
+[x] Applying business rules validations on the constraints
 
 ## US-007 Schema model
 
