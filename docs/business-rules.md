@@ -76,9 +76,15 @@ Validation fails if the same constraint occurs more than once within a column.
 
 ### Description
 
+A column can have at most one reference constraint.
+
 ### Motivation
 
+A column can reference only one table.
+
 ### Expected Behaviour
+
+Validation fails if a column contains more than one reference constraint.
 
 
 # Future Rules

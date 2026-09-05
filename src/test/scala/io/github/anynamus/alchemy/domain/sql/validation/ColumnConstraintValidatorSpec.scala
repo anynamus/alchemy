@@ -40,3 +40,11 @@ class ColumnConstraintValidatorSpec extends AnyFunSuite:
     val result = validator.validate(constraints)
 
     assert(result == Right(constraints))
+
+  test("BR-006 — A column cannot contain more than one reference constraint."):
+
+    val constraints = Vector(Reference("Customer"), Reference("Order"))
+
+    val result = validator.validate(constraints)
+
+    assert(result == Left(Vector("BR-006: more than one Reference : Customer, Order")))
