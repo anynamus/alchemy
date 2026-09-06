@@ -48,8 +48,8 @@
 
 ## US-010 Import data
 
-[ ] Read CSV files
-[ ] Build raw records
+[x] Read CSV files
+[x] Build raw records
 
 ## US-011 Data enrichment
 
