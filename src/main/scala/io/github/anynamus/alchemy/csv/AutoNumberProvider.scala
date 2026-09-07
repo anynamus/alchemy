@@ -1,7 +1,7 @@
 package io.github.anynamus.alchemy.csv
 
 import io.github.anynamus.alchemy.core.Result
-import io.github.anynamus.alchemy.domain.sql.model.{RawData, RawRecord}
+import io.github.anynamus.alchemy.domain.sql.model.RawRecord
 
 trait AutoNumberProvider:
   def nextValue(table: String): Result[Int]
@@ -18,7 +18,7 @@ object CsvAutoNumberProvider:
     yield CsvProvider(values)
 
   private def buildValues(
-                           data: RawData
+                           data: CsvData
                          ): Result[Map[String, Int]] =
     data.records.foldLeft[Result[Map[String, Int]]](Right(Map.empty)) {
       case (result, record) =>

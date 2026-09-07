@@ -9,7 +9,7 @@ import scala.jdk.CollectionConverters.*
 
 class CommonsCsvReader extends CsvReader:
 
-  override def read(input: String): Result[RawData] =
+  override def read(input: String): Result[CsvData] =
     if input.isEmpty then
       Left("CSV must not be empty")
     else
@@ -20,8 +20,8 @@ class CommonsCsvReader extends CsvReader:
         for
           _ <- validateHeaders(headers)
           records <- extractRecords(parser, headers)
-        yield RawData(headers, records)
 
+        yield CsvData(headers, records)
       catch
         case exception: UncheckedIOException =>
           Left(exception.getCause.getMessage)

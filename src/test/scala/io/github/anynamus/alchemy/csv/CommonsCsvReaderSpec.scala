@@ -1,6 +1,6 @@
 package io.github.anynamus.alchemy.csv
 
-import io.github.anynamus.alchemy.domain.sql.model.{RawData, RawRecord}
+import io.github.anynamus.alchemy.domain.sql.model.RawRecord
 import org.scalatest.funsuite.AnyFunSuite
 
 class CommonsCsvReaderSpec extends AnyFunSuite:
@@ -17,7 +17,7 @@ class CommonsCsvReaderSpec extends AnyFunSuite:
 
     assert(
       result == Right(
-        RawData(
+        CsvData(
           headers = Vector("name", "email"),
           records = Vector(
             RawRecord(Vector("Alice", "alice@example.com")),
@@ -35,7 +35,7 @@ class CommonsCsvReaderSpec extends AnyFunSuite:
 
     assert(
       result == Right(
-        RawData(
+        CsvData(
           headers = Vector("name", "email"),
           records = Vector.empty
         )
@@ -86,7 +86,7 @@ class CommonsCsvReaderSpec extends AnyFunSuite:
 
     assert(
       result == Right(
-        RawData(
+        CsvData(
           headers = Vector("name", "email"),
           records = Vector(
             RawRecord(Vector("Alice", "")),
@@ -106,7 +106,7 @@ class CommonsCsvReaderSpec extends AnyFunSuite:
 
     assert(
       result == Right(
-        RawData(
+        CsvData(
           headers = Vector("name", "description"),
           records = Vector(
             RawRecord(Vector("Alice", "Hello, world")),
@@ -127,7 +127,7 @@ class CommonsCsvReaderSpec extends AnyFunSuite:
 
     assert(
       result == Right(
-        RawData(
+        CsvData(
           headers = Vector("name", "description"),
           records = Vector(
             RawRecord(Vector("Alice", "Line one\nLine two")),
