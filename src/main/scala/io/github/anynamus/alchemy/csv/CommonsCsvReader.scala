@@ -1,7 +1,7 @@
 package io.github.anynamus.alchemy.csv
 
 import io.github.anynamus.alchemy.core.Result
-import io.github.anynamus.alchemy.domain.sql.model.{RawData, RawRecord}
+import io.github.anynamus.alchemy.data.{RawData, RawRecord}
 import org.apache.commons.csv.{CSVFormat, CSVParser}
 
 import java.io.UncheckedIOException

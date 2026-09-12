@@ -1,6 +1,6 @@
 package io.github.anynamus.alchemy.csv
 
-import io.github.anynamus.alchemy.domain.sql.model.RawRecord
+import io.github.anynamus.alchemy.data.RawRecord
 import org.scalatest.funsuite.AnyFunSuite
 
 class CommonsCsvReaderSpec extends AnyFunSuite:

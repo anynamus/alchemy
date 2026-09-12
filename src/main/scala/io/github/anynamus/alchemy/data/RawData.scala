@@ -1,7 +1,6 @@
-package io.github.anynamus.alchemy.domain.sql.model
+package io.github.anynamus.alchemy.data
 
 final case class RawData(
-                          table: String,
                           headers: Vector[String],
                           records: Vector[RawRecord]
                         )

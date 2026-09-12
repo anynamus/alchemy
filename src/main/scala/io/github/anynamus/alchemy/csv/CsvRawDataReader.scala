@@ -3,7 +3,8 @@ package io.github.anynamus.alchemy.csv
 import io.github.anynamus.alchemy.core.Result
 import io.github.anynamus.alchemy.core.Collections.duplicates
 import io.github.anynamus.alchemy.core.Traverse.traverse
-import io.github.anynamus.alchemy.domain.sql.model.{RawData, RawDataSource, RawDataset}
+import io.github.anynamus.alchemy.data.{RawData, RawTableData}
+import io.github.anynamus.alchemy.domain.sql.model.{RawDataSource, RawDataset}
 
 class CsvRawDataReader(
                         csvReader: CsvReader
@@ -17,17 +18,20 @@ class CsvRawDataReader(
       tables <- traverse(sources)(readTable)
     yield RawDataset(tables)
 
-  private def readTable(source: RawDataSource): Result[RawData] =
+  private def readTable(
+                         source: RawDataSource
+                       ): Result[RawTableData] =
     csvReader
       .read(source.input)
       .map(data =>
-        RawData(
+        RawTableData(
           table = source.table,
-          headers = data.headers,
-          records = data.records
+          data = RawData(
+            headers = data.headers,
+            records = data.records
+          )
         )
       )
-
 
   private def validateTableNames(
                                   sources: Vector[RawDataSource]

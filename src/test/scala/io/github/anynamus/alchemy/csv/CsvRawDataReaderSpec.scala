@@ -1,12 +1,13 @@
 package io.github.anynamus.alchemy.csv
 
+import io.github.anynamus.alchemy.data.{RawData, RawRecord, RawTableData}
 import io.github.anynamus.alchemy.domain.sql.model.*
 import org.scalatest.funsuite.AnyFunSuite
 
 class CsvRawDataReaderSpec extends AnyFunSuite:
 
   private val csvReader = new CommonsCsvReader()
-  private val reader = new CsvRawDataReader(csvReader)
+  private val reader    = new CsvRawDataReader(csvReader)
 
   test("read CSV data for a table"):
     val sources = Vector(
@@ -24,12 +25,14 @@ class CsvRawDataReaderSpec extends AnyFunSuite:
         Right(
           RawDataset(
             Vector(
-              RawData(
-                table = "Customer",
-                headers = Vector("name", "email"),
-                records = Vector(
-                  RawRecord(Vector("Alice", "alice@example.com")),
-                  RawRecord(Vector("Bob", "bob@example.com"))
+              RawTableData(
+                "Customer",
+                RawData(
+                  Vector("name", "email"),
+                  Vector(
+                    RawRecord(Vector("Alice", "alice@example.com")),
+                    RawRecord(Vector("Bob", "bob@example.com"))
+                  )
                 )
               )
             )
@@ -60,20 +63,24 @@ class CsvRawDataReaderSpec extends AnyFunSuite:
         Right(
           RawDataset(
             Vector(
-              RawData(
+              RawTableData(
                 "Customer",
-                Vector("name"),
-                Vector(
-                  RawRecord(Vector("Alice")),
-                  RawRecord(Vector("Bob"))
+                RawData(
+                  Vector("name"),
+                  Vector(
+                    RawRecord(Vector("Alice")),
+                    RawRecord(Vector("Bob"))
+                  )
                 )
               ),
-              RawData(
+              RawTableData(
                 "Product",
-                Vector("name"),
-                Vector(
-                  RawRecord(Vector("Product A")),
-                  RawRecord(Vector("Product B"))
+                RawData(
+                  Vector("name"),
+                  Vector(
+                    RawRecord(Vector("Product A")),
+                    RawRecord(Vector("Product B"))
+                  )
                 )
               )
             )

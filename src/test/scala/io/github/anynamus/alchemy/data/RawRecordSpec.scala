@@ -1,5 +1,6 @@
-package io.github.anynamus.alchemy.domain.sql.model
+package io.github.anynamus.alchemy.data
 
+import io.github.anynamus.alchemy.data.RawRecord
 import org.scalatest.funsuite.AnyFunSuite
 
 class RawRecordSpec extends AnyFunSuite:

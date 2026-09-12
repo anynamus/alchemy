@@ -1,4 +1,4 @@
-package io.github.anynamus.alchemy.domain.sql.model
+package io.github.anynamus.alchemy.data
 
 final case class RawRecord(
                             values: Vector[String]
