@@ -1,14 +1,14 @@
 package io.github.anynamus.alchemy.csv
 
 import io.github.anynamus.alchemy.core.Result
-import io.github.anynamus.alchemy.data.RawRecord
+import io.github.anynamus.alchemy.data.{RawData, RawRecord}
 import org.scalatest.funsuite.AnyFunSuite
 
 class CsvAutoNumberProviderSpec extends AnyFunSuite:
 
   test("return next value for a known table"):
     val provider = providerWith(
-      CsvData(
+      RawData(
         headers = Vector("table", "nextValue"),
         records = Vector(
           RawRecord(Vector("Customer", "100")),
@@ -22,7 +22,7 @@ class CsvAutoNumberProviderSpec extends AnyFunSuite:
 
   test("return the same value on successive calls"):
     val provider = providerWith(
-      CsvData(
+      RawData(
         headers = Vector("table", "nextValue"),
         records = Vector(
           RawRecord(Vector("Customer", "100"))
@@ -35,7 +35,7 @@ class CsvAutoNumberProviderSpec extends AnyFunSuite:
 
   test("fail for unknown table"):
     val provider = providerWith(
-      CsvData(
+      RawData(
         headers = Vector("table", "nextValue"),
         records = Vector(
           RawRecord(Vector("Customer", "100"))
@@ -48,7 +48,7 @@ class CsvAutoNumberProviderSpec extends AnyFunSuite:
   test("fail when next value is not an integer"):
     val result =
       providerResultWith(
-        CsvData(
+        RawData(
           headers = Vector("table", "nextValue"),
           records = Vector(
             RawRecord(Vector("Customer", "abc"))
@@ -63,7 +63,7 @@ class CsvAutoNumberProviderSpec extends AnyFunSuite:
   test("fail when table name is empty"):
     val result =
       providerResultWith(
-        CsvData(
+        RawData(
           headers = Vector("table", "nextValue"),
           records = Vector(
             RawRecord(Vector("", "100"))
@@ -76,7 +76,7 @@ class CsvAutoNumberProviderSpec extends AnyFunSuite:
   test("fail when a table is duplicated"):
     val providerResult =
       providerResultWith(
-        CsvData(
+        RawData(
           headers = Vector("table", "nextValue"),
           records = Vector(
             RawRecord(Vector("Customer", "100")),
@@ -91,16 +91,16 @@ class CsvAutoNumberProviderSpec extends AnyFunSuite:
         Left("Duplicated table 'Customer'")
     )
 
-  private def providerWith(data: CsvData): AutoNumberProvider =
+  private def providerWith(data: RawData): AutoNumberProvider =
     providerResultWith(data) match
       case Right(provider) => provider
-      case Left(error) => fail(error)
+      case Left(error)     => fail(error)
 
   private def providerResultWith(
-                                  data: CsvData
-                                ): Result[AutoNumberProvider] =
+      data: RawData
+  ): Result[AutoNumberProvider] =
     val csvReader = new CsvReader:
-      override def read(input: String): Result[CsvData] =
+      override def read(input: String): Result[RawData] =
         Right(data)
 
     CsvAutoNumberProvider.from(csvReader, "ignored")

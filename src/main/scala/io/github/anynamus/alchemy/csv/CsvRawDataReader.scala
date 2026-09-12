@@ -3,8 +3,8 @@ package io.github.anynamus.alchemy.csv
 import io.github.anynamus.alchemy.core.Result
 import io.github.anynamus.alchemy.core.Collections.duplicates
 import io.github.anynamus.alchemy.core.Traverse.traverse
-import io.github.anynamus.alchemy.data.{RawData, RawTableData}
-import io.github.anynamus.alchemy.domain.sql.model.{RawDataSource, RawDataset}
+import io.github.anynamus.alchemy.data.RawData
+import io.github.anynamus.alchemy.domain.sql.data.{RawDataSource, RawDataset, RawTableData}
 
 class CsvRawDataReader(
                         csvReader: CsvReader
@@ -26,10 +26,7 @@ class CsvRawDataReader(
       .map(data =>
         RawTableData(
           table = source.table,
-          data = RawData(
-            headers = data.headers,
-            records = data.records
-          )
+          data = data
         )
       )
 

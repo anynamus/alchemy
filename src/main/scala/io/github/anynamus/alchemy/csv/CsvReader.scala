@@ -1,6 +1,7 @@
 package io.github.anynamus.alchemy.csv
 
 import io.github.anynamus.alchemy.core.Result
+import io.github.anynamus.alchemy.data.RawData
 
 trait CsvReader:
-  def read(input: String): Result[CsvData]
+  def read(input: String): Result[RawData]
