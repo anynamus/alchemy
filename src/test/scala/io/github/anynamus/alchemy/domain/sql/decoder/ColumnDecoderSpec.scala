@@ -1,7 +1,7 @@
 package io.github.anynamus.alchemy.domain.sql.decoder
 
-import io.github.anynamus.alchemy.domain.sql.model.{ColumnType, Constraint}
 import io.github.anynamus.alchemy.domain.sql.model.Constraint.*
+import io.github.anynamus.alchemy.domain.sql.model.{ColumnType, Constraint}
 import io.github.anynamus.alchemy.yaml.YamlNode
 import org.scalatest.funsuite.AnyFunSuite
 

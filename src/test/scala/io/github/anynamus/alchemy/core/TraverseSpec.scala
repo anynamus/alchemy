@@ -1,7 +1,7 @@
 package io.github.anynamus.alchemy.core
 
+import io.github.anynamus.alchemy.core.Traverse.traverse
 import org.scalatest.funsuite.AnyFunSuite
-import Traverse.traverse
 
 class TraverseSpec extends AnyFunSuite:
 

@@ -1,6 +1,6 @@
 package io.github.anynamus.alchemy.yaml
 
-import YamlMappingOps.*
+import io.github.anynamus.alchemy.yaml.YamlMappingOps.*
 import org.scalatest.funsuite.AnyFunSuite
 
 class YamlMappingOpsSpec extends AnyFunSuite:

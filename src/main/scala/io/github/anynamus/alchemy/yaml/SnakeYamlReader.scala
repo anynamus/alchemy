@@ -1,10 +1,10 @@
 package io.github.anynamus.alchemy.yaml
 
 import io.github.anynamus.alchemy.core.Result
+import io.github.anynamus.alchemy.core.Traverse.traverse
 import org.snakeyaml.engine.v2.api.LoadSettings
 import org.snakeyaml.engine.v2.api.lowlevel.Compose
 import org.snakeyaml.engine.v2.nodes.*
-import io.github.anynamus.alchemy.core.Traverse.traverse
 
 import scala.jdk.CollectionConverters.*
 import scala.jdk.OptionConverters.*

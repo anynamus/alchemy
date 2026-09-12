@@ -4,8 +4,8 @@ import io.github.anynamus.alchemy.core.Traverse.traverse
 import io.github.anynamus.alchemy.core.{Decoder, Result}
 import io.github.anynamus.alchemy.domain.sql.model.{Column, ColumnType, Constraint}
 import io.github.anynamus.alchemy.yaml.YamlMappingOps.*
-import io.github.anynamus.alchemy.yaml.YamlNodeOps.*
 import io.github.anynamus.alchemy.yaml.YamlNode
+import io.github.anynamus.alchemy.yaml.YamlNodeOps.*
 
 class ColumnDecoder(constraintDecoder: Decoder[YamlNode, Constraint])
   extends Decoder[YamlNode,Column]:

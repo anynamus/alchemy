@@ -1,8 +1,7 @@
 package io.github.anynamus.alchemy.csv
 
 import io.github.anynamus.alchemy.core.Result
-import io.github.anynamus.alchemy.data.RawRecord
-import io.github.anynamus.alchemy.data.RawData
+import io.github.anynamus.alchemy.data.{RawData, RawRecord}
 
 trait AutoNumberProvider:
   def nextValue(table: String): Result[Int]

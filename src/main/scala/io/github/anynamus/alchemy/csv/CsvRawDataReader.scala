@@ -1,9 +1,8 @@
 package io.github.anynamus.alchemy.csv
 
-import io.github.anynamus.alchemy.core.Result
 import io.github.anynamus.alchemy.core.Collections.duplicates
+import io.github.anynamus.alchemy.core.Result
 import io.github.anynamus.alchemy.core.Traverse.traverse
-import io.github.anynamus.alchemy.data.RawData
 import io.github.anynamus.alchemy.domain.sql.data.{RawDataSource, RawDataset, RawTableData}
 
 class CsvRawDataReader(

@@ -1,6 +1,6 @@
 package io.github.anynamus.alchemy.yaml
 
-import YamlNodeOps.*
+import io.github.anynamus.alchemy.yaml.YamlNodeOps.*
 import org.scalatest.funsuite.AnyFunSuite
 
 class YamlNodeOpsSpec extends AnyFunSuite:

@@ -1,8 +1,8 @@
 package io.github.anynamus.alchemy.domain.sql.decoder
 
 import io.github.anynamus.alchemy.core.{Decoder, Result}
-import io.github.anynamus.alchemy.domain.sql.model.Constraint.{NotNull, Reference}
 import io.github.anynamus.alchemy.domain.sql.model.Constraint
+import io.github.anynamus.alchemy.domain.sql.model.Constraint.{NotNull, Reference}
 import io.github.anynamus.alchemy.yaml.YamlNode
 
 class ConstraintDecoder extends Decoder[YamlNode,Constraint]:

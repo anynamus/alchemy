@@ -1,9 +1,14 @@
 package io.github.anynamus.alchemy.domain.sql.validation
 
-import io.github.anynamus.alchemy.core.{RuleValidation, ValidationError, ValidationResult, Validator}
+import io.github.anynamus.alchemy.core.Collections.duplicates
+import io.github.anynamus.alchemy.core.{
+  RuleValidation,
+  ValidationError,
+  ValidationResult,
+  Validator
+}
 import io.github.anynamus.alchemy.domain.sql.model.Constraint
 import io.github.anynamus.alchemy.domain.sql.model.Constraint.*
-import io.github.anynamus.alchemy.core.Collections.duplicates
 
 private class ReferenceMustTargetNonEmptyTable extends RuleValidation[Vector[Constraint]]:
   override def validate(constraints: Vector[Constraint]): Option[ValidationError] =
