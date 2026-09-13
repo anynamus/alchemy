@@ -86,6 +86,7 @@ A column can reference only one table.
 
 Validation fails if a column contains more than one reference constraint.
 
+
 ## BR-007 — A schema must contain at least one table
 
 ### Description
@@ -129,6 +130,66 @@ A candidate key is not useful if the column does not exist.
 ### Expected Behaviour
 
 Validation fails if a candidate key references an unknown column.
+
+
+## BR-010 — A reference must point to an existing table
+
+### Description
+
+A reference constraint must target a table defined in the schema.
+
+### Motivation
+
+A reference cannot be resolved if the target table does not exist.
+
+### Expected Behaviour
+
+Validation fails if a reference targets an unknown table.
+
+
+## BR-011 — A referenced table must define a candidate key
+
+### Description
+
+A table targeted by a reference must define a candidate key.
+
+### Motivation
+
+A reference needs a candidate key to identify the target record.
+
+### Expected Behaviour
+
+Validation fails if a reference targets a table without a candidate key.
+
+
+## BR-012 — A reference value must match a target record
+
+### Description
+
+A reference value must match the candidate key of exactly one record in the referenced table.
+
+### Motivation
+
+A reference cannot be resolved if no target record matches the provided value.
+
+### Expected Behaviour
+
+Resolution fails if no record in the referenced table matches the reference value.
+
+
+## BR-013 — A candidate key must uniquely identify a record
+
+### Description
+
+A candidate key value must identify at most one record within a table.
+
+### Motivation
+
+A reference cannot be resolved unambiguously if multiple records have the same candidate key value.
+
+### Expected Behaviour
+
+Resolution fails if multiple records in a table have the same candidate key value.
 
 
 # Future Rules

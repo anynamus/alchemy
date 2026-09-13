@@ -1,6 +1,7 @@
 package io.github.anynamus.alchemy.domain.sql.validation
 
-import io.github.anynamus.alchemy.domain.sql.model.{Schema, Table}
+import io.github.anynamus.alchemy.domain.sql.model.Constraint.Reference
+import io.github.anynamus.alchemy.domain.sql.model.{Column, ColumnType, Schema, Table}
 import org.scalatest.funsuite.AnyFunSuite
 
 class SchemaValidatorSpec extends AnyFunSuite:
@@ -56,3 +57,21 @@ class SchemaValidatorSpec extends AnyFunSuite:
     val result = validator.validate(schema)
 
     assert(result == Right(schema))
+
+  test("BR-010 - Reference must point to an existing table"):
+    val schema = Schema(
+      Vector(
+        Table("Customer", Vector(Column("productId", ColumnType.String, Vector(Reference("Product"))))),
+        Table("Order", Vector(Column("productId", ColumnType.String, Vector(Reference("Product"))))),
+        Table("OrderLine", Vector(Column("orderId", ColumnType.String, Vector(Reference("Order"))))),
+        Table("Department", Vector(Column("buildingId", ColumnType.String, Vector(Reference("Building")))))
+      )
+    )
+
+    val result = validator.validate(schema)
+
+    assert(
+      result == Left(
+        Vector("BR-010: Referenced tables does not exist: 'Product, Building'")
+      )
+    )
