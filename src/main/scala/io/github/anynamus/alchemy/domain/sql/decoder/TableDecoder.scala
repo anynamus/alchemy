@@ -20,5 +20,9 @@ class TableDecoder(columnDecoder: Decoder[YamlNode, Column]) extends Decoder[Yam
             fields.required("columns")
               .flatMap(_.asSequence)
               .flatMap(nodes => traverse(nodes)(columnDecoder.decode))
-        yield Table(tableName, columns)
+          candidateKey <- fields.get("candidate-key") match
+            case None => Right(None)
+            case Some(YamlNode.Scalar(name)) => Right(Some(name))
+            case Some(_) => Left("Field 'candidate-key' must be a scalar")
+        yield Table(tableName, columns, candidateKey)
       case _                        => Left("Expected a mapping for table definition")

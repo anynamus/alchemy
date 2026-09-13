@@ -61,3 +61,85 @@ class TableDecoderSpec extends AnyFunSuite:
         assert(table == Table("Customer", Vector(Column("id", ColumnType.AutoNumber))))
       case _            =>
         fail("expected table named Customer")
+
+  test("decode candidate key"):
+
+    val node = YamlNode.Mapping(
+      Map(
+        "table"         -> YamlNode.Scalar("Customer"),
+        "columns"       -> YamlNode.Sequence(Vector(
+          YamlNode.Mapping(
+            Map(
+              "name" -> YamlNode.Scalar("email"),
+              "type" -> YamlNode.Scalar("string")
+            )
+          )
+        )),
+        "candidate-key" -> YamlNode.Scalar("email")
+      )
+    )
+
+    val result = decoder.decode(node)
+
+    assert(
+      result ==
+        Right(
+          Table(
+            name = "Customer",
+            columns = Vector(Column("email", ColumnType.String, Vector.empty)),
+            candidateKey = Some("email")
+          )
+        )
+    )
+
+  test("decode table without candidate key"):
+
+    val node = YamlNode.Mapping(
+      Map(
+        "table"   -> YamlNode.Scalar("Customer"),
+        "columns" -> YamlNode.Sequence(Vector(
+          YamlNode.Mapping(
+            Map(
+              "name" -> YamlNode.Scalar("email"),
+              "type" -> YamlNode.Scalar("string")
+            )
+          )
+        ))
+      )
+    )
+
+    val result = decoder.decode(node)
+
+    assert(
+      result ==
+        Right(
+          Table(
+            name = "Customer",
+            columns = Vector(Column("email", ColumnType.String, Vector.empty)),
+            candidateKey = None
+          )
+        )
+    )
+
+  test("decode table with invalid candidate key"):
+
+    val node = YamlNode.Mapping(
+      Map(
+        "table"         -> YamlNode.Scalar("Customer"),
+        "columns"       -> YamlNode.Sequence(Vector(
+          YamlNode.Mapping(
+            Map(
+              "name" -> YamlNode.Scalar("email"),
+              "type" -> YamlNode.Scalar("string")
+            )
+          )
+        )),
+        "candidate-key" -> YamlNode.Mapping(Map("name" -> YamlNode.Scalar("agaguk")))
+      )
+    )
+
+    val result = decoder.decode(node)
+
+    assert(
+      result == Left("Field 'candidate-key' must be a scalar")
+    )
