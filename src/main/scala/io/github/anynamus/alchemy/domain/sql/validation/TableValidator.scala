@@ -24,12 +24,21 @@ private class UniqueAutoNumberValidator extends RuleValidation[Table]:
     else
       None
 
+private class ExistingCandidateKeyColumnValidator extends RuleValidation[Table]:
+  override def validate(table: Table): Option[String] =
+    table.candidateKey
+      .filterNot(key => table.columns.exists(_.name == key))
+      .map(key =>
+        s"BR-009 - Candidate key '$key' does not exist in table '${table.name}'"
+      )
+
 class TableValidator extends Validator[Table]:
 
   private val rules = Vector(
     new AtLeastOneColumnValidator(),
     new UniqueColumnNameValidator(),
-    new UniqueAutoNumberValidator()
+    new UniqueAutoNumberValidator(),
+    new ExistingCandidateKeyColumnValidator()
   )
 
   override def validate(table: Table): ValidationResult[Table] =

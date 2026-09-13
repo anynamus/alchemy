@@ -116,6 +116,21 @@ A table name identifies a table and must therefore be unambiguous.
 Validation fails if multiple tables have the same name.
 
 
+## BR-009 — A candidate key must exist
+
+### Description
+
+If a candidate key is defined, it must reference an existing column within the table.
+
+### Motivation
+
+A candidate key is not useful if the column does not exist.
+
+### Expected Behaviour
+
+Validation fails if a candidate key references an unknown column.
+
+
 # Future Rules
 
 - References must point to an existing table.

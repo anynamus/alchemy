@@ -49,3 +49,19 @@ class TableValidatorSpec extends AnyFunSuite:
     val result = validator.validate(table)
 
     assert(result == Right(table))
+
+  test("reject unknown candidate key"):
+    val table = Table(
+      name = "Customer",
+      columns = Vector(
+        Column("id", ColumnType.AutoNumber),
+        Column("email", ColumnType.String)
+      ),
+      candidateKey = Some("unknown")
+    )
+
+    val result = validator.validate(table)
+
+    assert(
+      result == Left(Vector("BR-009 - Candidate key 'unknown' does not exist in table 'Customer'"))
+    )
