@@ -24,7 +24,6 @@ class ColumnConstraintValidatorSpec extends AnyFunSuite:
 
     assert(result == Left(Vector("BR-005: duplicated constraints NotNull")))
 
-
   test("BR-005 - A column cannot contain duplicate Reference Constraint"):
 
     val constraints = Vector(Reference("Customer"), Reference("Customer"))

@@ -7,7 +7,7 @@ import io.github.anynamus.alchemy.yaml.YamlNode
 import io.github.anynamus.alchemy.yaml.YamlNodeOps.*
 
 class SchemaDecoder(tableDecoder: Decoder[YamlNode, Table])
-  extends Decoder[YamlNode, Schema]:
+    extends Decoder[YamlNode, Schema]:
 
   override def decode(node: YamlNode): Result[Schema] =
     node

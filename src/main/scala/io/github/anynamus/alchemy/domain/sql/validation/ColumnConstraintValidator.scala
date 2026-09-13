@@ -21,7 +21,6 @@ private class ReferenceMustTargetNonEmptyTable extends RuleValidation[Vector[Con
     else
       None
 
-
 private class ConstraintsCannotBeDuplicated extends RuleValidation[Vector[Constraint]]:
   override def validate(constraints: Vector[Constraint]): Option[ValidationError] =
     val duplicatedConstraints = duplicates(constraints)
@@ -41,7 +40,6 @@ private class AtMostOneReferenceConstraint extends RuleValidation[Vector[Constra
       Some(s"BR-006: more than one Reference : ${references.map(_.table).mkString(", ")}")
     else
       None
-
 
 class ColumnConstraintValidator extends Validator[Vector[Constraint]]:
 

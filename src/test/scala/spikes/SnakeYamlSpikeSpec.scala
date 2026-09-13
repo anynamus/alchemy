@@ -32,9 +32,9 @@ class SnakeYamlSpikeSpec extends AnyFunSuite:
 
     node match
       case mappingNode: MappingNode => println(
-        mappingNode.getValue.stream()
-          .filter(v => v.getValueNode.getNodeType == NodeType.SEQUENCE)
-          .map(v => v.getValueNode.asInstanceOf[SequenceNode].getValue)
-          .toList
-      )
-      case _ => fail("the main node is not a mapping...")
+          mappingNode.getValue.stream()
+            .filter(v => v.getValueNode.getNodeType == NodeType.SEQUENCE)
+            .map(v => v.getValueNode.asInstanceOf[SequenceNode].getValue)
+            .toList
+        )
+      case _                        => fail("the main node is not a mapping...")

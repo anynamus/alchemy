@@ -15,7 +15,6 @@ class SchemaValidatorSpec extends AnyFunSuite:
 
     assert(result == Left(Vector("BR-007: schema must contain at least one table")))
 
-
   test("BR-008 — Table names must be unique within a schema"):
 
     val customer1 = Table("Customer", Vector.empty)
@@ -47,11 +46,10 @@ class SchemaValidatorSpec extends AnyFunSuite:
       )
     )
 
-
   test("A valid schema passes validation"):
 
     val customer = Table("Customer", Vector.empty)
-    val order = Table("Order", Vector.empty)
+    val order    = Table("Order", Vector.empty)
 
     val schema = Schema(Vector(customer, order))
 

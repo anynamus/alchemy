@@ -6,20 +6,20 @@ import io.github.anynamus.alchemy.core.Traverse.traverse
 import io.github.anynamus.alchemy.domain.sql.data.{RawDataSource, RawDataset, RawTableData}
 
 class CsvRawDataReader(
-                        csvReader: CsvReader
-                      ) extends RawDataReader:
+    csvReader: CsvReader
+) extends RawDataReader:
 
   override def read(
-                     sources: Vector[RawDataSource]
-                   ): Result[RawDataset] =
+      sources: Vector[RawDataSource]
+  ): Result[RawDataset] =
     for
-      _ <- validateTableNames(sources)
+      _      <- validateTableNames(sources)
       tables <- traverse(sources)(readTable)
     yield RawDataset(tables)
 
   private def readTable(
-                         source: RawDataSource
-                       ): Result[RawTableData] =
+      source: RawDataSource
+  ): Result[RawTableData] =
     csvReader
       .read(source.input)
       .map(data =>
@@ -30,8 +30,8 @@ class CsvRawDataReader(
       )
 
   private def validateTableNames(
-                                  sources: Vector[RawDataSource]
-                                ): Result[Unit] =
+      sources: Vector[RawDataSource]
+  ): Result[Unit] =
     val duplicatedTables =
       duplicates(sources.map(_.table))
 

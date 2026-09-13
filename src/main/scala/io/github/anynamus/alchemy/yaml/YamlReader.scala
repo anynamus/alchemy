@@ -5,6 +5,5 @@ import io.github.anynamus.alchemy.core.Result
 trait YamlReader:
 
   def read(
-            text: String
-          ): Result[YamlNode]
-
+      text: String
+  ): Result[YamlNode]

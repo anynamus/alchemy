@@ -56,8 +56,8 @@ class SnakeYamlReader extends YamlReader:
   private def convertMappingEntry(tuple: NodeTuple): Result[(String, YamlNode)] =
     for
       key <- tuple.getKeyNode match
-        case scalar: ScalarNode => Right(scalar.getValue)
-        case _ => Left("invalid YAML key: keys must be scalars")
+               case scalar: ScalarNode => Right(scalar.getValue)
+               case _                  => Left("invalid YAML key: keys must be scalars")
 
       value <- convert(tuple.getValueNode)
     yield (key, value)

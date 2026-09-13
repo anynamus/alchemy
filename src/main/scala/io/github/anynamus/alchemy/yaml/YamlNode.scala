@@ -3,13 +3,13 @@ package io.github.anynamus.alchemy.yaml
 enum YamlNode:
 
   case Mapping(
-               fields: Map[String, YamlNode]
-             )
+      fields: Map[String, YamlNode]
+  )
 
   case Sequence(
-              values: Vector[YamlNode]
-            )
+      values: Vector[YamlNode]
+  )
 
   case Scalar(
-               value: String
-             )
+      value: String
+  )

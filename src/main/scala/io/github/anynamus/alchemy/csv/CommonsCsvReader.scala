@@ -14,13 +14,12 @@ class CommonsCsvReader extends CsvReader:
       Left("CSV must not be empty")
     else
       try
-        val parser = createParser(input)
+        val parser  = createParser(input)
         val headers = extractHeaders(parser)
 
         for
-          _ <- validateHeaders(headers)
+          _       <- validateHeaders(headers)
           records <- extractRecords(parser, headers)
-
         yield RawData(headers, records)
       catch
         case exception: UncheckedIOException =>
@@ -45,9 +44,9 @@ class CommonsCsvReader extends CsvReader:
       Right(())
 
   private def extractRecords(
-                              parser: CSVParser,
-                              headers: Vector[String]
-                            ): Result[Vector[RawRecord]] =
+      parser: CSVParser,
+      headers: Vector[String]
+  ): Result[Vector[RawRecord]] =
     val records =
       parser
         .iterator()
@@ -58,5 +57,5 @@ class CommonsCsvReader extends CsvReader:
     records.find(_.size != headers.size) match
       case Some(_) =>
         Left("CSV record has an invalid number of values")
-      case None =>
+      case None    =>
         Right(records.map(RawRecord.apply))

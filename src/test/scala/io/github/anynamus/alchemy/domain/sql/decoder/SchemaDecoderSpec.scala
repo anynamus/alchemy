@@ -13,13 +13,13 @@ class SchemaDecoderSpec extends AnyFunSuite:
       Vector(
         YamlNode.Mapping(
           Map(
-            "table" -> YamlNode.Scalar("Customer"),
+            "table"   -> YamlNode.Scalar("Customer"),
             "columns" -> YamlNode.Sequence(Vector.empty)
           )
         ),
         YamlNode.Mapping(
           Map(
-            "table" -> YamlNode.Scalar("Order"),
+            "table"   -> YamlNode.Scalar("Order"),
             "columns" -> YamlNode.Sequence(Vector.empty)
           )
         )
@@ -52,7 +52,7 @@ class SchemaDecoderSpec extends AnyFunSuite:
 
   test("fail when a table cannot be decoded"):
 
-    val validNode = YamlNode.Scalar("valid")
+    val validNode   = YamlNode.Scalar("valid")
     val invalidNode = YamlNode.Scalar("invalid")
 
     val decoder = buildSchemaDecoder()
@@ -64,9 +64,8 @@ class SchemaDecoderSpec extends AnyFunSuite:
 
     assert(result == Left("Expected a mapping for table definition"))
 
-
   private def buildSchemaDecoder(): Decoder[YamlNode, Schema] =
     val constraintDecoder = new ConstraintDecoder()
-    val columnDecoder = new ColumnDecoder(constraintDecoder)
-    val tableDecoder = new TableDecoder(columnDecoder)
+    val columnDecoder     = new ColumnDecoder(constraintDecoder)
+    val tableDecoder      = new TableDecoder(columnDecoder)
     new SchemaDecoder(tableDecoder)

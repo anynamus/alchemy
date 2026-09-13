@@ -2,7 +2,6 @@ package io.github.anynamus.alchemy.yaml
 
 import org.scalatest.funsuite.AnyFunSuite
 
-
 class SnakeYamlReaderSpec extends AnyFunSuite:
 
   private val reader = new SnakeYamlReader()
@@ -20,7 +19,6 @@ class SnakeYamlReaderSpec extends AnyFunSuite:
         |      - not null
         |      - reference: Order
         |""".stripMargin
-
 
     val node = reader.read(yaml)
 
@@ -57,7 +55,7 @@ class SnakeYamlReaderSpec extends AnyFunSuite:
 
     node.getOrElse(null) match
       case YamlNode.Scalar(value) => assert(value == "a, b, c")
-      case _ => fail("unexpected node")
+      case _                      => fail("unexpected node")
 
   test("mapping with non-scalar key returns error"):
     val yaml =
@@ -70,5 +68,5 @@ class SnakeYamlReaderSpec extends AnyFunSuite:
     node match
       case Left(error) =>
         assert(error == "invalid YAML key: keys must be scalars")
-      case Right(_) =>
+      case Right(_)    =>
         fail("expected failure")

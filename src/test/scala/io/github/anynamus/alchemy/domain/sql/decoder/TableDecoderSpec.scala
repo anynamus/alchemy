@@ -20,7 +20,6 @@ class TableDecoderSpec extends AnyFunSuite:
       case Right(_) =>
         fail("expected failure")
 
-
   test("reads a table without table definition"):
     val node = YamlNode.Mapping(Map("dummy" -> YamlNode.Scalar("Customer")))
 
@@ -32,7 +31,6 @@ class TableDecoderSpec extends AnyFunSuite:
 
       case Right(_) =>
         fail("expected failure")
-
 
   test("A table name must be of type Scalar"):
     val node = YamlNode.Mapping(Map("table" -> YamlNode.Sequence(Vector())))
@@ -46,15 +44,20 @@ class TableDecoderSpec extends AnyFunSuite:
       case Right(_) =>
         fail("expected failure")
 
-
   test("Reads a table with a single column"):
-    val columns = YamlNode.Mapping(Map("name" -> YamlNode.Scalar("id"), "type" -> YamlNode.Scalar("autonumber")))
-    val node = YamlNode.Mapping(Map("table" -> YamlNode.Scalar("Customer"), "columns" -> YamlNode.Sequence(Vector(columns))))
+    val columns = YamlNode.Mapping(Map(
+      "name" -> YamlNode.Scalar("id"),
+      "type" -> YamlNode.Scalar("autonumber")
+    ))
+    val node    = YamlNode.Mapping(Map(
+      "table"   -> YamlNode.Scalar("Customer"),
+      "columns" -> YamlNode.Sequence(Vector(columns))
+    ))
 
     val result = decoder.decode(node)
 
     result match
       case Right(table) =>
         assert(table == Table("Customer", Vector(Column("id", ColumnType.AutoNumber))))
-      case _ =>
+      case _            =>
         fail("expected table named Customer")

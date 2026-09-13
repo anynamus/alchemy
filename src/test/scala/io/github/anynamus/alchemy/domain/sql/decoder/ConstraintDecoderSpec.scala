@@ -15,14 +15,12 @@ class ConstraintDecoderSpec extends AnyFunSuite:
 
     assert(result == Left("Expected a mapping or a scalar for constraint definition"))
 
-
   test("reads unknown scalar value"):
     val node = YamlNode.Scalar("unknown")
 
     val result = decoder.decode(node)
 
     assert(result == Left("Unknown constraint 'unknown'"))
-
 
   test("reads a 'not null' constraint"):
     val node = YamlNode.Scalar("not null")
@@ -31,14 +29,12 @@ class ConstraintDecoderSpec extends AnyFunSuite:
 
     assert(result == Right(NotNull))
 
-
   test("reads reference constraint"):
     val node = YamlNode.Mapping(Map("reference" -> YamlNode.Scalar("Order")))
 
     val result = decoder.decode(node)
 
     assert(result == Right(Reference("Order")))
-
 
   test("reads mapping node without reference"):
     val node = YamlNode.Mapping(Map("nothing" -> YamlNode.Scalar("something")))
@@ -47,12 +43,11 @@ class ConstraintDecoderSpec extends AnyFunSuite:
 
     assert(result == Left("Unknown constraint field(s): 'nothing'"))
 
-
   test("reads reference constraint with an invalid constaint"):
     val node = YamlNode.Mapping(
       Map(
         "reference" -> YamlNode.Scalar("Order"),
-        "dummy" -> YamlNode.Scalar("x")
+        "dummy"     -> YamlNode.Scalar("x")
       )
     )
 
