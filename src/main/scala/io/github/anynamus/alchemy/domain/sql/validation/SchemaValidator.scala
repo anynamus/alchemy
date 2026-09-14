@@ -32,23 +32,40 @@ private class ReferencedTablesMustExist extends RuleValidation[Schema]:
   override def validate(schema: Schema): Option[String] =
     val tables = schema.tables.map(_.name)
 
-    val references = schema.tables
-      .flatMap(_.columns)
-      .flatMap(_.constraints)
-      .collect {
-        case reference: Reference => reference
-      }.map(_.table).toList
+    val references = distinctReferences(schema)
 
-    val notExisting = references.filterNot(tables.contains).distinct
+    val notExisting = references.filterNot(tables.contains)
 
-    if(notExisting.isEmpty)
+    if notExisting.isEmpty then
       None
     else
       Some(s"BR-010: Referenced tables does not exist: '${notExisting.mkString(", ")}'")
 
-private class ReferencedTableHaveCandidateKey extends RuleValidation[Schema]:
+private class ReferencedTablesMustDefineCandidateKey extends RuleValidation[Schema]:
   override def validate(schema: Schema): Option[String] =
-    None
+
+    val references = distinctReferences(schema)
+
+    val referencedTablesWithoutCandidateKey = schema.tables
+      .filterNot(_.candidateKey.isDefined)
+      .map(_.name)
+      .filter(references.contains)
+      .toList
+
+    if referencedTablesWithoutCandidateKey.nonEmpty then
+      Some(s"BR-011: Referenced tables without candidate key: '${referencedTablesWithoutCandidateKey.mkString(", ")}'")
+    else
+      None
+
+
+private def distinctReferences(schema: Schema): List[String] =
+  schema.tables
+    .flatMap(_.columns)
+    .flatMap(_.constraints)
+    .collect {
+      case reference: Reference => reference
+    }.map(_.table).toList.distinct
+
 
 class SchemaValidator extends Validator[Schema]:
 
@@ -56,7 +73,7 @@ class SchemaValidator extends Validator[Schema]:
     new SchemaMustContainAtLeastOneTable(),
     new TableNamesMustBeUnique(),
     new ReferencedTablesMustExist(),
-    new ReferencedTableHaveCandidateKey()
+    new ReferencedTablesMustDefineCandidateKey()
   )
 
   override def validate(schema: Schema): ValidationResult[Schema] =
